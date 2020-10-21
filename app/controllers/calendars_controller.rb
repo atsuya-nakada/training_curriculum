@@ -20,7 +20,7 @@ class CalendarsController < ApplicationController
   end
 
   def getWeek
-    wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
+    @wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
 
     # Dateオブジェクトは、日付を保持しています。下記のように`.today.day`とすると、今日の日付を取得できます。
     @todays_date = Date.today
@@ -33,9 +33,9 @@ class CalendarsController < ApplicationController
     7.times do |x|
       today_plans = []
       plan = plans.map do |plan|
-        today_plans.push(plan.plan) if plan.date == @todays_date + x
+        today_plans.push(plan.plan) if plan.date == @todays_date + @wdays
       end
-      days = { :month => (@todays_date + x).month, :date => (@todays_date+x).day, :plans => today_plans}
+      days = { :month => (@todays_date + @wdays ).month, :date => (@todays_date+ @wdays).day, :plans => today_plans}
       @week_days.push(days)
     end
 
